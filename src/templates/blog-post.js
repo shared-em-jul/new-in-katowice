@@ -25,6 +25,7 @@ const BlogPostTemplate = ({ data: { previous, next, post } }) => {
     <Layout>
       <Seo title={post.title} description={post.excerpt} />
 
+<div className="content-under-menu" >
       <article
         className="blog-post"
         itemScope
@@ -52,9 +53,9 @@ const BlogPostTemplate = ({ data: { previous, next, post } }) => {
         <hr />
 
         <footer>
-          <Bio />
         </footer>
       </article>
+      </div>
 
       <nav className="blog-post-nav">
         <ul

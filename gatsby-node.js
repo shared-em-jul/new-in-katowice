@@ -20,6 +20,9 @@ exports.createPages = async gatsbyUtilities => {
     return
   }
 
+  // Create a main page
+  await createMainPage({ posts, gatsbyUtilities })
+
   // If there are posts, create pages for them
   await createIndividualBlogPostPages({ posts, gatsbyUtilities })
 
@@ -60,7 +63,60 @@ const createIndividualBlogPostPages = async ({ posts, gatsbyUtilities }) =>
   )
 
 /**
- * This function creates all the individual blog pages in this site
+* JUL - This function creates main page with a carousel of
+* all the individual article tiles in this site
+*/
+async function createMainPage({ posts, gatsbyUtilities }) {
+  const graphqlResult = await gatsbyUtilities.graphql(/* GraphQL */ `
+    {
+      wp {
+        readingSettings {
+          postsPerPage
+        }
+      }
+    }
+  `)
+
+  const { postsPerPage } = graphqlResult.data.wp.readingSettings
+
+  const postsChunkedIntoArchivePages = chunk(posts, postsPerPage)
+  const totalPages = postsChunkedIntoArchivePages.length
+
+  return Promise.all(
+    postsChunkedIntoArchivePages.map(async (_posts, index) => {
+      const pageNumber = index + 1
+
+      const getPagePath = page => `/`
+
+      // createPage is an action passed to createPages
+      // See https://www.gatsbyjs.com/docs/actions#createPage for more info
+      await gatsbyUtilities.actions.createPage({
+        path: getPagePath(pageNumber),
+
+        // use the template as the page component
+        component: path.resolve(`./src/templates/main-page-template.js`),
+
+        // `context` is available in the template as a prop and
+        // as a variable in GraphQL.
+        context: {
+          // the index of our loop is the offset of which posts we want to display
+          // so for page 1, 0 * 10 = 0 offset, for page 2, 1 * 10 = 10 posts offset,
+          // etc
+          offset: index * postsPerPage,
+
+          // We need to tell the template how many posts to display too
+          postsPerPage,
+
+          nextPagePath: getPagePath(pageNumber + 1),
+          previousPagePath: getPagePath(pageNumber - 1),
+        },
+      })
+    })
+  )
+}
+
+/**
+ * This function creates page with list of all the individual blog pages in this site
  */
 async function createBlogPostArchive({ posts, gatsbyUtilities }) {
   const graphqlResult = await gatsbyUtilities.graphql(/* GraphQL */ `
@@ -88,7 +144,7 @@ async function createBlogPostArchive({ posts, gatsbyUtilities }) {
           // we want the first page to be "/" and any additional pages
           // to be numbered.
           // "/blog/2" for example
-          return page === 1 ? `/` : `/blog/${page}`
+          return page === 1 ? `/all` : `/all/${page}`
         }
 
         return null

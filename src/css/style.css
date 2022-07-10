@@ -241,6 +241,10 @@ a:focus {
 
 /* Custom classes */
 
+.content-under-menu {
+  margin-top: 65px; /*height of the Menu*/
+}
+
 .global-wrapper {
   margin: var(--spacing-0) auto;
   max-width: var(--maxWidth-wrapper);
