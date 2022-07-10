@@ -2,6 +2,7 @@ import React from "react";
 import { Link, useStaticQuery, graphql } from "gatsby"
 import { makeStyles } from "@mui/styles";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import * as cn from "classnames";
 
 const theme = createTheme();
 const useStyles = makeStyles((theme) => ({
@@ -11,15 +12,37 @@ const useStyles = makeStyles((theme) => ({
         overflow: "hidden",
         borderBottom: "1px solid #aaaaaa",
         marginBottom: 30,
-        padding: 16,
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
         position: "absolute",
         top: 0,
         zIndex: 3,
         height: 65,
     },
+    content: {
+            overflow: "hidden",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            paddingTop: "0px !important",
+            paddingBottom: "0px !important",
+            "& a" : {
+                color: "black",
+                textDecoration: "none",
+            }
+    },
+    logotype: {
+    },
+    navigation: {
+        "& a" : {
+            color: "rgb(100,100,100)",
+            textDecoration: "none",
+            "&:hover": {
+                color: "black",
+            }
+        }
+    },
+    coloredText: {
+       color: "rgb(214, 111, 73)",
+    }
 }));
 
 interface MenuProps {
@@ -43,14 +66,27 @@ const Menu: React.FC<MenuProps> = (props) => {
         }
       `)
 
+const getSeason = () => {
+    const date =  new Date();
+    const seasonIdx = Math.floor((date.getMonth() / 12 * 4)) % 4;
+    return ['Winter', 'Spring', 'Summer', 'Autumn'][seasonIdx];
+}
+//             <Link className="header-link-home" to="/">
+//                 {title}
+//             </Link>
+
     return (
         <div className={classes.container}>
-         <div className="global-wrapper">
-            <Link className="header-link-home" to="/">
-                {title}
+         <div className={cn("global-wrapper", classes.content)}>
+            <Link className={cn("header-link-home", classes.logotype)} to="/">
+                <span className={classes.coloredText}>
+                    {getSeason()},
+                </span>
+                <br/>
+                Katowice, Polska.
             </Link>
-            <div>
-                {/* <Link to="/">Home</Link> */}
+            <div className={cn("header-link-home", classes.navigation)}>
+                <Link to="/all">All articles</Link>
                 {/* <Link to="/article">Article</Link> */}
             </div>
             </div>

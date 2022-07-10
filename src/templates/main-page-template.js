@@ -5,7 +5,7 @@ import parse from "html-react-parser"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 import { GatsbyImage } from "gatsby-plugin-image"
-import { extractHeadingFromContent } from '../utils/expractHeadingFromContent'
+import { extractHeadingFromContent } from '../utils/extractHeadingFromContent'
 import Jumbotron from "../components/components/Jumbotron"
 import Menu from "../components/components/Menu"
 

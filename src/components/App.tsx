@@ -5,6 +5,7 @@ import HomePage from './components/HomePage';
 import { Router, Link, Location } from "@reach/router"
 
 const App: React.FC = () => {
+// not used
 return (
     <div className="App">
               <Menu/>

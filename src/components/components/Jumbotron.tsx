@@ -33,7 +33,7 @@ interface JumbotronProps {
 
 const Jumbotron: React.FC<JumbotronProps> = (props) => {
     const { title, heading, image } = props;
-    globalImageUrl = image.props.image.images?.fallback.src;
+    globalImageUrl = image?.props.image.images?.fallback.src;
 
     const classes = useStyles();
 
