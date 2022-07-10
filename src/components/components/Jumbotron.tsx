@@ -1,5 +1,4 @@
 import React from "react";
-import Button from '@mui/material/Button'
 import { makeStyles } from "@mui/styles";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
@@ -42,7 +41,6 @@ const Jumbotron: React.FC<JumbotronProps> = (props) => {
         <div className={classes.jumbotron}>
             <h1 className={classes.title}>{title}</h1>
             {heading}
-            <Button variant="contained">Hello World</Button>
         </div >
     )
 }

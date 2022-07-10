@@ -7,7 +7,6 @@ import Seo from "../components/seo"
 import { GatsbyImage } from "gatsby-plugin-image"
 import { extractHeadingFromContent } from '../utils/expractHeadingFromContent'
 import Jumbotron from "../components/components/Jumbotron"
-import HomePage from "../components/components/HomePage"
 import Menu from "../components/components/Menu"
 
 const BlogIndex = ({

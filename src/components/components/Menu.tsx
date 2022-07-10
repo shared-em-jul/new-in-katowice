@@ -45,12 +45,14 @@ const Menu: React.FC<MenuProps> = (props) => {
 
     return (
         <div className={classes.container}>
+         <div className="global-wrapper">
             <Link className="header-link-home" to="/">
                 {title}
             </Link>
             <div>
                 {/* <Link to="/">Home</Link> */}
                 {/* <Link to="/article">Article</Link> */}
+            </div>
             </div>
         </div>
     )

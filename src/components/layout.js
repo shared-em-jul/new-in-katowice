@@ -1,6 +1,5 @@
 import React from "react"
 import { Link, useStaticQuery, graphql } from "gatsby"
-import HomePage from "./components/HomePage"
 import Menu from "./components/Menu"
 
 
